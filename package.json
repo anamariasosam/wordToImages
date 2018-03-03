@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "config": {
-    "UNSPLASH_CLIENT_ID": "95fd7c4915f4be26981916d966406b0f7b9104152f615af655e409e16d0be057"
+    "UNSPLASH_CLIENT_ID": "95fd7c4915f4be26981916d966406b0f7b9104152f615af655e409e16d0be057",
+    "PIXABAY_KEY": "4735686-2c771292d46058a5a25bb6f34"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
