@@ -14,6 +14,7 @@ exports.unsplash = function(req, res) {
     .get('https://api.unsplash.com/search/photos')
     .timeout({ response: 5000 })
     .query({ client_id: TOKENS.unsplash })
+    .query({ page: 1 })
     .query({ query: word })
     .end((err, data = {text: ""}) => {
       if (err) { return res.status(500).send({ error: 'Something failed!' + err }) }
