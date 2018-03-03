@@ -1,0 +1,24 @@
+{
+  "name": "wordtoimages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "config": {
+    "UNSPLASH_CLIENT_ID": "95fd7c4915f4be26981916d966406b0f7b9104152f615af655e409e16d0be057"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "superagent": "^3.8.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.1"
+  }
+}
