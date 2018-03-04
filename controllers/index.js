@@ -7,6 +7,7 @@ const TOKENS = {
   unsplash: PACKAGE.config.UNSPLASH_CLIENT_ID,
   pixabay: PACKAGE.config.PIXABAY_KEY,
   flickr: PACKAGE.config.FLICKR_API_KEY,
+  giphy: PACKAGE.config.GIPHY_API_KEY,
 }
 
 exports.unsplash = function(req, res) {
@@ -17,7 +18,7 @@ exports.unsplash = function(req, res) {
     // .timeout({ response: 5000 })
     .query({
       client_id: TOKENS.unsplash,
-      per_page: 20,
+      per_page: 15,
       query: word
     })
     .end((err, data = {text: ""}) => {
@@ -56,13 +57,31 @@ exports.flickr = function(req, res) {
       nojsoncallback: true,
       content_type: 1,
       media: 'photos',
-      per_page: 10,
+      per_page: 5,
       in_gallery: true
      })
     .end((err, data = {text: ""}) => {
       if (err) { return res.status(500).send({ error: 'Something failed!' + err }) }
 
       res.json(normalizeData(JSON.parse(data.text).photos.photo, 'flickr'))
+    })
+
+}
+exports.giphy = function(req, res) {
+  const { word = '' } = req.query || {}
+
+  superagent
+    .get('https://api.giphy.com/v1/gifs/search')
+    .query({
+      api_key: TOKENS.giphy,
+      q: word,
+      limit: 10,
+      rating: 'PG'
+     })
+    .end((err, data = {text: ""}) => {
+      if (err) { return res.status(500).send({ error: 'Something failed!' + err }) }
+
+      res.json(normalizeData(JSON.parse(data.text).data, 'giphy'))
     })
 
 }
@@ -77,6 +96,8 @@ function normalizeData(array = [], from) {
         return [ ...accumulator,  normalizers.pixabay(element) ]
       case 'flickr':
         return [ ...accumulator,  normalizers.flickr(element) ]
+      case 'giphy':
+        return [ ...accumulator,  normalizers.giphy(element) ]
       default:
         return []
     }
